@@ -1,0 +1,1 @@
+my_vm ansible_host=193.40.156.86 ansible_port=6522 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
