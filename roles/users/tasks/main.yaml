@@ -1,0 +1,19 @@
+- name: Add user juri
+  user:
+    name: juri
+
+- name: Set authorized keys for juri from url
+  authorized_key:
+    user: juri
+    state: present
+    key: https://github.com/hudolejev.keys
+    
+- name: Add user roman
+  user:
+    name: roman
+
+- name: Set authorized keys for roman from url
+  authorized_key:
+    user: roman
+    state: present
+    key: https://github.com/hudolejev.keys

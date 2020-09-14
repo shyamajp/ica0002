@@ -1,0 +1,10 @@
+- name: Intall nginx
+  apt:
+    name: nginx
+    state: present
+    force_apt_get: yes
+  
+- name: Serve index.html
+  copy:
+    src: ../files
+    dest: /var/www/html
