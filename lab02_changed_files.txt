@@ -1,0 +1,14 @@
+# add users
+/etc/passwd changed
+/home/juri added
+/home/roman added
+
+# add ssh key
+/home/juri/.ssh/authorized_key added
+/home/roman/.ssh/authorized_key added
+
+# install nginx
+/etc/nginx added
+
+# serve index.html
+/var/www/html added
