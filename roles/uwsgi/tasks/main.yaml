@@ -1,0 +1,26 @@
+---
+- name: Install uWSGI packages
+  apt:
+    name:
+      - uwsgi
+      - uwsgi-plugin-python3
+    state: present
+    force_apt_get: yes
+
+- name: Create directory for uWSGI configuration
+  file:
+    path: /etc/uwsgi/apps-enabled
+    state: directory
+
+- name: Copy uWSGI configuration
+  copy:
+    src: ../files/agama.ini
+    dest: /etc/uwsgi/apps-enabled/agama.ini
+    force: yes
+  notify: Restart uWSGI
+
+- name: Start uWSGI service
+  service:
+    name: uwsgi
+    state: started
+    enabled: yes

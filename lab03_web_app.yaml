@@ -1,0 +1,8 @@
+---
+- name: Web app
+  hosts: app_servers
+  become: yes
+  roles: 
+    - agama
+    - uwsgi
+    - nginx

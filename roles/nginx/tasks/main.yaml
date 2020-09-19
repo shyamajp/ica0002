@@ -1,10 +1,16 @@
-- name: Intall nginx
+---
+- name: Intall Nginx
   apt:
     name: nginx
-    state: present
     force_apt_get: yes
   
-- name: Serve index.html
+- name: Copy Nginx configuration
   copy:
-    src: ../files
-    dest: /var/www/html
+    src: ../files/default
+    dest: /etc/nginx/sites-enabled/default
+  notify: Restart Nginx
+
+- name: Start Nginx
+  service:
+    name: nginx
+    state: started

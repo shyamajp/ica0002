@@ -1,7 +1,7 @@
 ---
-  - name: Web server
-    hosts: web_servers
-    become: yes
-    roles: 
-      - users
-      - nginx
+- name: Web server
+  hosts: web_servers
+  become: yes
+  roles: 
+    - users
+    - nginx

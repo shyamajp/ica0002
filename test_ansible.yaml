@@ -1,5 +1,5 @@
 ---
-  - name: Ansible connection test
-    hosts: vm-1
-    roles:
-      - test_connection
+- name: Ansible connection test
+  hosts: vm-1
+  roles:
+    - test_connection

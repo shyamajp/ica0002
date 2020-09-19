@@ -1,3 +1,4 @@
+---
 - name: Add user juri
   user:
     name: juri
