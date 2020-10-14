@@ -1,5 +1,5 @@
 $TTL	604800
-{{ hostname }}.{{ domain }}.	IN	SOA	{{ hostname }}.{{ domain }}. admin.{{ domain }}. (
+{{ hostname }}.{{ domain }}.	IN	SOA	{{ hostname }}.{{ domain }}. admin.{{ hostname }}.{{ domain }}. (
 			      2		; Serial
 			 604800		; Refresh
 			  86400		; Retry
@@ -7,8 +7,8 @@ $TTL	604800
 			 604800 )	; Negative Cache TTL
 ;
 
-@			   				IN  NS			 {{ hostname }}.{{ domain }}
-{{ hostname }}.{{ domain }} IN  NS  		 {{ ansible_default_ipv4.address }}
+	IN  NS			 vm2.{{ hostname }}.{{ domain }}
+@   IN  NS  		 {{ ansible_default_ipv4.address }}
 {% for d in dns_record %}
-{{ d.name }}   				IN  {{ d.type }} {{ d.ip }}
+{{ d.name }}   				 IN  {{ d.type }} {{ d.ip }}
 {% endfor %}

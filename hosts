@@ -9,3 +9,6 @@ vm-2
 
 [web_servers]
 vm-1
+
+[dns_server]
+vm-2

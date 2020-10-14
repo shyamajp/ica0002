@@ -8,18 +8,18 @@ options {
 	directory "/var/cache/bind";
 	forwarders {
       {% for f in dns_forwarders %}
-	    "{{ f }}";
+	    {{ f }};
       {% endfor %}
 	};
 	dnssec-validation no;
 	auth-nxdomain no;    # conform to RFC1035
 	allow-query {
-		ica0002vpn
-	}
+		ica0002vpn;
+	};
 };
 
-zone "{{ domain }}" IN {
+zone "{{ hostname }}.{{ domain }}" IN {
     type master;
-    file "/etc/db.{{ hostname }}";
-    notify: no;
+    file "/etc/bind/db.{{ hostname }}/db.{{ hostname }}.zone";
+    notify no;
 };
