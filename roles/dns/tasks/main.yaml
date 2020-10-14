@@ -1,0 +1,43 @@
+---
+- name: Intall Bind9
+  apt:
+    name: 
+      - bind9
+    state: present
+    force_apt_get: yes
+    update_cache: yes
+
+- name: Configure DNS forwarders, ACL, master zone
+  template:
+    src: named.conf.options.j2
+    dest: /etc/bind/named.conf.options
+    owner: root
+    group: bind
+    mode: 0640
+  notify: Restart Bind9
+    
+- name: Make /etc/bind/db.{{ hostname }} directory
+  file:
+    path: /etc/bind/db.{{ hostname }}
+    state: directory
+    owner: root
+    group: bind
+    mode: 0750
+
+- name: Configure master zone
+  template: 
+    src: db.premiumfriday.j2
+    dest: /etc/bind/db.{{ hostname }}
+    owner: root
+    group: bind
+    mode: 0640
+  notify: Restart Bind9
+
+- name: Copy resolv.conf file
+  template:
+    src: resolve.conf.j2
+    dest: /etc/resolve.conf
+    owner: root
+    group: bind
+    mode: 0640
+  notify: Restart Bind9

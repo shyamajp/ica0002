@@ -1,0 +1,11 @@
+---
+- name: Collect information about all VMs
+  hosts: all
+  tasks:
+    - setup:
+
+- name: DNS servers
+  hosts: dns_server
+  become: yes
+  roles:
+    - dns

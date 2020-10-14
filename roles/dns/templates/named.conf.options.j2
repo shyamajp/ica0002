@@ -1,0 +1,25 @@
+acl ica0002vpn {
+	{% for s in subnets %}
+	  {{ s }}
+	{% endfor %}
+};
+
+options {
+	directory "/var/cache/bind";
+	forwarders {
+      {% for f in dns_forwarders %}
+	    "{{ f }}";
+      {% endfor %}
+	};
+	dnssec-validation no;
+	auth-nxdomain no;    # conform to RFC1035
+	allow-query {
+		ica0002vpn
+	}
+};
+
+zone "{{ domain }}" IN {
+    type master;
+    file "/etc/db.{{ hostname }}";
+    notify: no;
+};
