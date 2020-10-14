@@ -12,20 +12,29 @@
     path: /etc/uwsgi/apps-enabled
     state: directory
 
-- name: Copy uWSGI configuration
-  copy:
-    src: ../files/agama.ini
-    dest: /etc/uwsgi/apps-enabled/agama.ini
-    force: yes
-  notify: Restart uWSGI
-
-# TODO: Internal Server Error
+# lab03
 # - name: Copy uWSGI configuration
-#   template:
-#     src: agama.ini.j2
+#   copy:
+#     src: agama.ini
 #     dest: /etc/uwsgi/apps-enabled/agama.ini
 #     force: yes
 #   notify: Restart uWSGI
+# lab03
+
+# lab04
+- name: Intall MySQL server
+  apt:
+    name: 
+      - python3-pymysql
+    force_apt_get: yes
+
+- name: Copy uWSGI configuration
+  template:
+    src: agama.ini.j2
+    dest: /etc/uwsgi/apps-enabled/agama.ini
+    force: yes
+  notify: Restart uWSGI
+# lab04
 
 - name: Start uWSGI service
   service:

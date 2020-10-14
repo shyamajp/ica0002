@@ -2,6 +2,7 @@
 - name: Create system user agama
   user:
     name: agama
+    state: present
     system: yes
 
 - name: Create directory /opt/agama

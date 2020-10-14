@@ -8,7 +8,7 @@
 
 - name: Copy MySQL server configuration
   copy:
-    src: ../files/override.cnf
+    src: override.cnf
     dest: /etc/mysql/mysql.conf.d/override.cnf
     force: yes
   notify: Restart MySQL server
