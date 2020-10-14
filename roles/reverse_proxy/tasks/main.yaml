@@ -1,0 +1,13 @@
+---
+- name: Intall Nginx
+  apt:
+    name: nginx
+    state: present
+    force_apt_get: yes
+  
+- name: Configure reverse proxy
+  template:
+    src: default.j2
+    dest: /etc/nginx/sites-enabled/default
+    force: yes
+  notify: Restart Nginx
