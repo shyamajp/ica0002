@@ -7,8 +7,8 @@ $TTL	604800
 			 604800 )	; Negative Cache TTL
 ;
 
-	IN  NS			 vm2.{{ hostname }}.{{ domain }}
-@   IN  NS  		 {{ ansible_default_ipv4.address }}
+	IN  NS			 vm2.{{ hostname }}.{{ domain }}.
+	IN  A			 {{ dns_record[1].ip }}
 {% for d in dns_record %}
 {{ d.name }}   				 IN  {{ d.type }} {{ d.ip }}
 {% endfor %}

@@ -33,11 +33,16 @@
     mode: 0640
   notify: Restart Bind9
 
+- name: Stop systemd-resolved
+  service:
+    name:  systemd-resolved
+    state: stopped
+    enabled: no
+
 - name: Copy resolv.conf file
   template:
-    src: resolve.conf.j2
-    dest: /etc/resolve.conf
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
     owner: root
     group: bind
-    mode: 0640
-  notify: Restart Bind9
+    mode: 0644
