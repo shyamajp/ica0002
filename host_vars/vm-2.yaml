@@ -5,9 +5,6 @@ subnets:
   - 192.168.42.0/24;
   - 127.0.0.0/8;
 
-domain: ttu
-hostname: premiumfriday
-
 dns_record:
  - name: vm1
    type: A

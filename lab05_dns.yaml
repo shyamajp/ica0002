@@ -9,3 +9,9 @@
   become: yes
   roles:
     - dns
+
+- name: Change resolv.conf
+  hosts: all
+  become: yes
+  roles:
+    - resolv

@@ -11,38 +11,15 @@
   template:
     src: named.conf.options.j2
     dest: /etc/bind/named.conf.options
-    owner: root
-    group: bind
-    mode: 0640
   notify: Restart Bind9
     
-- name: Make /etc/bind/db.{{ hostname }} directory
+- name: Make /etc/bind/db.{{ startup_name }}  directory
   file:
-    path: /etc/bind/db.{{ hostname }}
+    path: /etc/bind/db.{{ startup_name }} 
     state: directory
-    owner: root
-    group: bind
-    mode: 0750
 
 - name: Configure master zone
   template: 
     src: db.premiumfriday.j2
-    dest: /etc/bind/db.{{ hostname }}/db.{{ hostname }}.zone
-    owner: root
-    group: bind
-    mode: 0640
+    dest: /etc/bind/db.{{ startup_name }}/db.{{ startup_name }}.zone
   notify: Restart Bind9
-
-- name: Stop systemd-resolved
-  service:
-    name:  systemd-resolved
-    state: stopped
-    enabled: no
-
-- name: Copy resolv.conf file
-  template:
-    src: resolv.conf.j2
-    dest: /etc/resolv.conf
-    owner: root
-    group: bind
-    mode: 0644

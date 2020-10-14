@@ -18,8 +18,8 @@ options {
 	};
 };
 
-zone "{{ hostname }}.{{ domain }}" IN {
+zone "{{ domain }}" IN {
     type master;
-    file "/etc/bind/db.{{ hostname }}/db.{{ hostname }}.zone";
+    file "/etc/bind/db.{{ startup_name }} /db.{{ startup_name }} .zone";
     notify no;
 };
