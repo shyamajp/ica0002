@@ -20,6 +20,6 @@ options {
 
 zone "{{ domain }}" IN {
     type master;
-    file "/etc/bind/db.{{ startup_name }} /db.{{ startup_name }} .zone";
+    file "/etc/bind/db.{{ startup_name }}/db.{{ startup_name }}.zone";
     notify no;
 };

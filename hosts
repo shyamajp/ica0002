@@ -1,14 +1,14 @@
-vm-1 ansible_host=193.40.156.86 ansible_port=5122 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
-vm-2 ansible_host=193.40.156.86 ansible_port=12822 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+vm1 ansible_host=193.40.156.86 ansible_port=5122 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+vm2 ansible_host=193.40.156.86 ansible_port=12822 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
 
 [app_servers]
-vm-1
+vm1
 
 [db_servers]
-vm-2
+vm2
 
 [web_servers]
-vm-1
+vm1
 
 [dns_server]
-vm-2
+vm2
