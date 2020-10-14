@@ -19,6 +19,14 @@
     force: yes
   notify: Restart uWSGI
 
+# TODO: Internal Server Error
+# - name: Copy uWSGI configuration
+#   template:
+#     src: agama.ini.j2
+#     dest: /etc/uwsgi/apps-enabled/agama.ini
+#     force: yes
+#   notify: Restart uWSGI
+
 - name: Start uWSGI service
   service:
     name: uwsgi
