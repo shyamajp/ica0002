@@ -6,7 +6,7 @@
     - node_exporters
 
 - name: Install and configure Prometheus
-  hosts: vm1
+  hosts: prometheus
   become: yes
   roles:
     - prometheus

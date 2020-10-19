@@ -12,3 +12,6 @@ vm1
 
 [dns_server]
 vm2
+
+[prometheus]
+vm1
