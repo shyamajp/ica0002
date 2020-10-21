@@ -1,0 +1,21 @@
+---
+- name: Install grafana
+  apt:
+    deb: https://dl.grafana.com/oss/release/grafana_7.2.2_amd64.deb
+    force_apt_get: yes
+
+- name: Start grafana
+  service:
+    name: grafana-server
+    state: started
+    enabled: yes
+
+- name: Copy grafana configuration
+  copy:
+    src: grafana.ini
+    dest: /etc/grafana/grafana.ini
+  notify: Restart grafana
+
+# first login > change password
+# user: admin
+# password: admin

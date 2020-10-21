@@ -2,16 +2,55 @@ server {
         listen 80 default_server;
         server_name _;
 
+        {% if inventory_hostname in groups['app_servers'] %}
         location / {
                 uwsgi_pass 127.0.0.1:5000;
                 include uwsgi_params;
         }
+        {% endif %}
 
         location /metrics {
                 proxy_pass http://127.0.0.1:9100/metrics;
         }
 
+        {% if inventory_hostname in groups['prometheus'] %}
         location /prometheus {
                 proxy_pass http://127.0.0.1:9090;
         }
+        {% endif %}
+
+        {% if inventory_hostname in groups['dns_servers'] %}
+        location /bind-metrics {
+                proxy_pass http://localhost:9119/metrics;
+        }
+        {% endif %}
+
+        {% if inventory_hostname in groups['db_servers'] %}
+        location /mysql-metrics {
+                proxy_pass http://localhost:9104/metrics;
+        }
+        {% endif %}
+
+        {% if inventory_hostname in groups['web_servers'] %}
+        location /nginx-metrics {
+                proxy_pass http://localhost:9113/metrics;
+        }
+        {% endif %}
+        
+        {% if inventory_hostname in groups['grafana'] %}
+        location /grafana {
+                proxy_pass http://localhost:3000;
+        }
+        {% endif %}
 }
+
+{% if inventory_hostname in groups['web_servers'] %}
+server {
+        listen 8080 default_server;
+        server_name _;
+
+        location /stub_status {
+                stub_status;
+        }
+}
+{% endif %}

@@ -1,0 +1,30 @@
+---
+- name: Install MySQL Exporter
+  hosts: db_servers
+  become: yes
+  roles:
+    - mysql_exporter
+
+- name: Install Bind Exporter
+  hosts: dns_servers
+  become: yes
+  roles:
+    - bind_exporter
+
+- name: Install Nginx Exporter
+  hosts: web_servers
+  become: yes
+  roles:
+    - nginx_exporter
+
+- name: Reverse proxy
+  hosts: all
+  become: yes
+  roles:
+    - reverse_proxy
+
+- name: Install grafana
+  hosts: grafana
+  become: yes
+  roles:
+    - grafana

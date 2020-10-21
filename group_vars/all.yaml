@@ -11,3 +11,29 @@ mysql_password: !vault |
 
 domain: premiumfriday.ttu
 startup_name: premiumfriday
+
+mysql_exporter_user: exporter
+mysql_exporter_password:  !vault | 
+          $ANSIBLE_VAULT;1.1;AES256
+          37616462313730346439663531363863323066633436613837653464383536353166346463343434
+          6637343430613738306230656436613666653131333337350a653862306638316236393331323237
+          30326637326135656233336130306636646164386637383965323035623634336437643836346362
+          3838373463336633660a613137656563366464323832393236623630373939366662363861613136
+          6336
+
+prometheus_jobs:
+  - name: node
+    targets: "{{ groups['all'] }}"
+    port: 9100
+  - name: bind
+    targets:
+      - ns
+    port: 9119
+  - name: mysql
+    targets:
+      - db
+    port: 9104
+  - name: www
+    targets:
+      - www
+    port: 9113

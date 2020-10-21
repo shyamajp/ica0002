@@ -1,0 +1,12 @@
+[Unit]
+Description=Prometheus exporter for nginx
+Documentation=https://github.com/nginxinc/nginx-prometheus-exporter
+
+[Service]
+Restart=always
+User=prometheus
+# EnvironmentFile=/etc/default/prometheus-bind-exporter
+ExecStart=/usr/local/bin/nginx-prometheus-exporter
+
+[Install]
+WantedBy=multi-user.target

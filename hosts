@@ -15,3 +15,6 @@ vm2
 
 [prometheus]
 vm1
+
+[grafana]
+vm2

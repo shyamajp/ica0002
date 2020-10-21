@@ -1,0 +1,18 @@
+---
+- name: Download Nginx exporter
+  unarchive: 
+    src: https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.8.0/nginx-prometheus-exporter-0.8.0-linux-amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+
+# Run /usr/local/bin/nginx-prometheus-exporter
+- name: Make service unit
+  copy:
+    src: prometheus-nginx-exporter.service
+    dest: /etc/systemd/system
+  notify: Reload daemon
+
+- name: Start Nginx exporter
+  service:
+    name: prometheus-nginx-exporter
+    state: started
