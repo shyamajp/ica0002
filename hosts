@@ -10,7 +10,7 @@ vm2
 [web_servers]
 vm1
 
-[dns_server]
+[dns_servers]
 vm2
 
 [prometheus]

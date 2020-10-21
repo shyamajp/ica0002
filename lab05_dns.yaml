@@ -5,10 +5,10 @@
     - setup:
 
 - name: DNS servers
-  hosts: dns_server
+  hosts: dns_servers
   become: yes
   roles:
-    - dns
+    - bind
 
 - name: Change resolv.conf
   hosts: all

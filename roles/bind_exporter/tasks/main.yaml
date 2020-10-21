@@ -1,0 +1,11 @@
+---
+- name: Install Bind9 exporter
+  apt:
+    name: prometheus-bind-exporter
+    force_apt_get: yes
+
+- name: Make sure Bind9 exporter is enabed
+  service:
+    name: prometheus-bind-exporter
+    state: started
+    enabled: yes
