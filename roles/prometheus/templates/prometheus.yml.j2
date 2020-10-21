@@ -4,14 +4,6 @@ global:
 
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: 'prometheus'
-
-    # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: 5s
-    scrape_timeout: 5s
-
-    static_configs:
-      - targets: ['localhost:9090']
 
   - job_name: linux
     static_configs:
@@ -19,3 +11,11 @@ scrape_configs:
    {% for vm in groups['all'] %}
         - {{ hostvars[vm]['inventory_hostname'] }}.{{ domain }} 
    {% endfor %}
+
+{% for job in prometheus_jobs %}
+  - job_name: {{ job.name }}
+    static_configs:
+      - targets:
+        - {{ job.target }}.{{ domain }}:{{ job.port }}
+
+{% endfor %}

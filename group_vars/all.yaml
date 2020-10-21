@@ -22,18 +22,12 @@ mysql_exporter_password:  !vault |
           6336
 
 prometheus_jobs:
-  - name: node
-    targets: "{{ groups['all'] }}"
-    port: 9100
   - name: bind
-    targets:
-      - ns
+    target: vm2
     port: 9119
   - name: mysql
-    targets:
-      - db
+    target: vm2
     port: 9104
-  - name: www
-    targets:
-      - www
+  - name: nginx
+    target: vm1
     port: 9113
