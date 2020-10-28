@@ -8,7 +8,7 @@ subnets:
 dns_record:
  - name: vm1
    type: A
-   ip: 192.168.42.51
+   ip: 192.168.42.100
  - name: vm2
    type: A
-   ip: 192.168.42.128
+   ip: 192.168.42.92
