@@ -1,0 +1,12 @@
+---
+- name: Database server
+  hosts: db_servers
+  become: yes
+  roles:
+    - mysql
+
+- name: Change database to MySQL
+  hosts: app_servers
+  become: yes
+  roles:
+    - uwsgi
