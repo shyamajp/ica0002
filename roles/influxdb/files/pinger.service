@@ -1,0 +1,11 @@
+[Unit]
+Description=Ping tool
+
+[Service]
+Restart=always
+User=pinger
+# EnvironmentFile=/etc/pinger/pinger.conf
+ExecStart=/usr/local/bin/pinger
+
+[Install]
+WantedBy=multi-user.target

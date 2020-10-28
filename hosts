@@ -18,3 +18,6 @@ vm1
 
 [grafana]
 vm2
+
+[influxdb]
+vm2
