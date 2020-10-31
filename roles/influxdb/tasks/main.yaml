@@ -22,8 +22,8 @@
     state: directory
 
 - name: Copy pinger.conf
-  copy:
-    src: pinger.conf
+  template:
+    src: pinger.conf.j2
     dest: /etc/pinger/pinger.conf
     mode: '0644'
   notify: Restart influxdb
@@ -47,3 +47,23 @@
   service:
     name: pinger
     state: started
+
+- name: Install Telegraf
+  apt:
+    deb: https://dl.influxdata.com/telegraf/releases/telegraf_1.16.0-1_amd64.deb
+    force_apt_get: yes
+
+- name: Install Telegraf
+  template:
+    src: telegraf.conf.j2
+    dest: /etc/telegraf/telegraf.conf
+  notify: Restart Telegraf
+
+- name: Copy rsyslog config
+  template:
+    src: 51-telegraf.conf.j2
+    dest: /etc/rsyslog.d/51-telegraf.conf
+  notify: Restart 
+  
+  # TODO: pinger not making logs
+  # TODO: hostname does not show on syslog dashboard

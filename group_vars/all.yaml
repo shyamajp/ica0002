@@ -31,3 +31,5 @@ prometheus_jobs:
   - name: nginx
     target: vm1
     port: 9113
+
+influxdb: influxdb

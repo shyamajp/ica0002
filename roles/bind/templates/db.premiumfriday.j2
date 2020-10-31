@@ -14,5 +14,5 @@ $TTL	604800
 {% endfor %}
 
 {% if inventory_hostname in groups['grafana'] %}
-influxdb	IN {{ dns_record[1].type }} {{ dns_record[1].ip }}
+{{ influxdb }}	IN {{ dns_record[1].type }} {{ dns_record[1].ip }}
 {% endif %}
