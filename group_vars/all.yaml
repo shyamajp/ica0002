@@ -33,3 +33,5 @@ prometheus_jobs:
     port: 9113
 
 influxdb: influxdb
+
+backup: 192.168.42.39
