@@ -1,29 +1,6 @@
 ---
-- name: Restart influxdb
-  service:
-    name: influxdb
-    state: restarted
-    enabled: yes
-
-- name: Restart influxdb-client
-  service:
-    name: influxdb-client
-    state: restarted
-    enabled: yes
-
-- name: Reload daemon
-  systemd:
-    daemon_reload: yes
-
 - name: Restart Telegraf
   service:
     name: telegraf
-    state: restarted
-    enabled: yes
-
-
-- name: Restart rsyslog
-  service:
-    name: rsyslog
     state: restarted
     enabled: yes

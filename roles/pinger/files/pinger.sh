@@ -4,6 +4,11 @@
 # Find them and fix them to get bonus on exam.
 # Problem example: SQL injection.
 
+if ! which fping > /dev/null; then
+  logger "$0 No fping executable available"
+  exit 1
+fi
+
 for t in database_url database_name targets; do
   if ! grep -q "^${t}=" /etc/pinger/pinger.conf; then
     logger "$0 Failed to get $t from config"

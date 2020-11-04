@@ -10,44 +10,6 @@
 # > create database latency 
 # > use latency
 
-- name: Create system user pinger
-  user:
-    name: pinger
-    state: present
-    system: yes
-
-- name: Create directory /etc/pinger
-  file:
-    path: /etc/pinger
-    state: directory
-
-- name: Copy pinger.conf
-  template:
-    src: pinger.conf.j2
-    dest: /etc/pinger/pinger.conf
-    mode: '0644'
-  notify: Restart influxdb
-
-- name: Copy pinger.sh
-  copy:
-    src: pinger.sh
-    dest: /usr/local/bin/pinger
-    mode: '0755' # must be executable(5), not (4)
-  notify: Restart influxdb
-
-# Run /usr/local/bin/pinger
-- name: Make service unit
-  copy:
-    src: pinger.service
-    dest: /etc/systemd/system
-    mode: '0644'
-  notify: Reload daemon
-
-- name: Start pinger
-  service:
-    name: pinger
-    state: started
-
 - name: Install Telegraf
   apt:
     deb: https://dl.influxdata.com/telegraf/releases/telegraf_1.16.0-1_amd64.deb
@@ -58,12 +20,3 @@
     src: telegraf.conf.j2
     dest: /etc/telegraf/telegraf.conf
   notify: Restart Telegraf
-
-- name: Copy rsyslog config
-  template:
-    src: 51-telegraf.conf.j2
-    dest: /etc/rsyslog.d/51-telegraf.conf
-  notify: Restart 
-  
-  # TODO: pinger not making logs
-  # TODO: hostname does not show on syslog dashboard

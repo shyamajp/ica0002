@@ -4,3 +4,10 @@
   become: yes
   roles:
     - influxdb
+    - pinger
+
+- name: Configure rsyslog
+  hosts: all
+  become: yes
+  roles:
+    - rsyslog
