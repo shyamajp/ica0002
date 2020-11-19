@@ -3,7 +3,95 @@
   user:
     name: backup
     state: present
-    create_home: yes # default
-    home: /home/backup # default
+    shell: "/bin/bash"
     generate_ssh_key: yes
-    ssh_key_file: /home/backup/.ssh/id_rsa
+
+- name: Add user to prometheus on vm1
+  user:
+    name: backup
+    groups: prometheus
+  when: inventory_hostname == "vm1"
+
+- name: Add user to mysql, influxdb, grafana on vm2
+  user:
+    name: backup
+    groups: mysql,influxdb,grafana
+  when: inventory_hostname == "vm2"
+
+- name: Create directories
+  file:
+    path: /home/backup/{{ item }}
+    state: directory
+    owner: backup
+    group: backup
+    mode: '0755'
+  loop:
+    - backup
+    - restore
+
+- name: Add conf for mysqldump
+  template:
+    src: .my.cnf.j2
+    dest: /home/backup/.my.cnf
+    owner: 'backup'
+    mode: '0400'
+  when: inventory_hostname == "vm2"
+
+- name: Create prometheus backup directory
+  file:
+    path: /home/backup/backup/prometheus
+    state: directory
+    owner: backup
+    group: backup
+    mode: '0755'
+  when: inventory_hostname == "vm1"
+
+- name: Create influxdb backup directory
+  file:
+    path: /home/backup/backup/influxdb
+    state: directory
+    owner: backup
+    group: backup
+    mode: '0755'
+  when: inventory_hostname == "vm2"
+
+- name: Intall Duplicity
+  apt:
+    name: duplicity
+    state: present
+    force_apt_get: yes
+
+- name: Schedule backup scripts for vm1
+  copy:
+    src: backup_vm1
+    dest: /etc/cron.d/backup
+  when: inventory_hostname == "vm1"
+
+- name: Schedule backup scripts for vm2
+  copy:
+    src: backup_vm2
+    dest: /etc/cron.d/backup
+  when: inventory_hostname == "vm2"
+
+# SSH by backup
+# ssh shyamajp@backup.premiumfriday.ttu
+
+# dump by backup
+# mysqldump agama > /home/backup/backup/agama.sql
+
+# scp by backup
+# scp agama.sql shyamajp@backup.premiumfriday.ttu:agama.sql
+
+# copy to /home/backup/restore by backup
+# rsync -v shyamajp@backup.premiumfriday.ttu:agama.sql restore/agama.sql
+
+# restore by backup
+# mysql agama < restore/agama.sql -u agama -p
+
+
+
+
+# Duplicity
+# dumplicity -no-encryption full agama.sql rsync://shyamajp@backup.premiumfriday.ttu//home/shyamajp
+# dumplicity -no-encryption incremental agama.sql rsync://shyamajp@backup.premiumfriday.ttu//home/shyamajp
+# dumplicity -no-encryption restore rsync://shyamajp@backup.premiumfriday.ttu//home/shyamajp/  restore/

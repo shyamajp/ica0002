@@ -1,0 +1,6 @@
+---
+- name: Copy backup
+  hosts: all
+  become: yes
+  roles:
+    - backup

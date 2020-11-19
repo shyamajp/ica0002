@@ -25,3 +25,10 @@
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
     host: "%"
+
+- name: Create MySQL user for backup
+  mysql_user:
+    name: backup
+    password: "{{ mysql_password }}"
+    priv: "{{ mysql_database }}.*:ALL"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
