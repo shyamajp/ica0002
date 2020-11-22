@@ -1,0 +1,10 @@
+[mysqld]
+bind-address = 0.0.0.0
+
+# lab11
+# Replication
+server-id = {{ mysql_server_id }}
+log-bin = /var/log/mysql/mysql-bin.log
+relay-log = /var/log/mysql/mysql-relay.log
+replicate-do-db = {{ mysql_database }}
+# lab11

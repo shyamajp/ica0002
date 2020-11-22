@@ -6,12 +6,22 @@
       - python3-pymysql
     force_apt_get: yes
 
+# lab04
+# - name: Copy MySQL server configuration
+#   copy:
+#     src: override.cnf
+#     dest: /etc/mysql/mysql.conf.d/override.cnf
+#     force: yes
+#   notify: Restart MySQL server
+# lab04
+
+# lab11
 - name: Copy MySQL server configuration
-  copy:
-    src: override.cnf
+  template:
+    src: override.cnf.j2
     dest: /etc/mysql/mysql.conf.d/override.cnf
-    force: yes
   notify: Restart MySQL server
+# lab11
 
 - name: MySQL database
   mysql_db:
@@ -26,9 +36,30 @@
     login_unix_socket: /var/run/mysqld/mysqld.sock
     host: "%"
 
+# lab10
 - name: Create MySQL user for backup
   mysql_user:
     name: backup
     password: "{{ mysql_password }}"
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+# lab10
+
+# lab11
+- name: Create MySQL user for replication
+  mysql_user:
+    name: replication
+    password: "{{ mysql_password }}"
+    priv: "*.*:REPLICATION SLAVE"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    host: "%"
+     
+# On slave (vm1) as root
+# STOP SLAVE;
+# CHANGE MASTER TO MASTER_HOST='192.168.42.92',
+#                  MASTER_USER='replication',
+#                  MASTER_PASSWORD='<your-replication-password>'
+# RESET SLAVE;
+# START SLAVE;
+# SHOW SLAVE STATUS\G
+# lab11

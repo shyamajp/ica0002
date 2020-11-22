@@ -1,0 +1,57 @@
+---
+# Set up Bind DNS server
+- name: Collect information about all VMs
+  hosts: all
+  tasks:
+    - setup:
+
+- name: DNS servers
+  hosts: dns_servers
+  become: yes
+  roles:
+    - bind
+
+- name: Change resolv.conf
+  hosts: all
+  become: yes
+  roles:
+    - resolv
+
+- name: Set up MySQL server and MySQL exporter for Prometheus
+  hosts: db_servers
+  become: yes
+  roles:
+    - mysql
+    - mysql_exporter
+
+- name: Set up Agama
+  hosts: app_servers
+  become: yes
+  roles: 
+    - agama
+    - uwsgi
+    - nginx
+
+- name: Reverse proxy
+  hosts: all
+  become: yes
+  roles:
+    - reverse_proxy
+
+- name: Set up backup user and backups
+  hosts: all
+  become: yes
+  roles:
+    - backup
+
+- name: Set up Prometheus
+  hosts: prometheus
+  become: yes
+  roles:
+    - prometheus
+
+- name: Set up Grafana
+  hosts: grafana
+  become: yes
+  roles:
+    - grafana

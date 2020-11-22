@@ -5,7 +5,8 @@ vm2 ansible_host=193.40.156.86 ansible_port=9222 ansible_ssh_user=ubuntu ansible
 vm1
 
 [db_servers]
-vm2
+vm2 mysql_server_id=100
+vm1 mysql_server_id=92
 
 [web_servers]
 vm1
