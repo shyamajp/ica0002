@@ -5,9 +5,11 @@
 - agama
 - nginx  
 - prometheus  
+- MySQL-ha
 ### links
 [agama](http://193.40.156.86:10080/)  
 [prometheus](http://193.40.156.86:10080/prometheus)   
+[MySQL metrics](http://193.40.156.86:10080/mysql-metrics)  
 [node metrics](http://193.40.156.86:10080/metrics)   
 [Nginx metrics](http://193.40.156.86:10080/nginx-metrics) 
 
@@ -18,6 +20,7 @@
 - MySQL
 - Bind
 - Grafana
+- Grafana-Docker
 ### links
 [Grafana](http://193.40.156.86:9280/grafana)  
 [node metrics](http://193.40.156.86:9280/metrics)  
@@ -52,12 +55,18 @@ Text > `DOWn`
 ## DNS queries per minute
 Metrics: `rate(bind_resolver_queries_total[1m])`
 
+## MySQL server ID
+Metrics: `mysql_global_variables_server_id`
+Display > Fields > pick vm
+
 ## MySQL status
 Metrics: `mysql_up`
 (duplicate from Bind status)
+Display > Fields > pick vm
 
 ## MySQL queries per minute
 Metrics: `rate(mysql_global_status_queries[1m])`
+Metrics: `rate(mysql_global_status_queries{job="mysql"}[1m])`
 
 ## Nginx status
 Metrics: `nginx_up`
