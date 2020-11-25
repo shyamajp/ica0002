@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1604505297081,
+  "iteration": 1606317678233,
   "links": [],
   "panels": [
     {
@@ -68,7 +68,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "7.2.2",
+          "pluginVersion": "7.3.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -163,7 +163,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "7.2.2",
+          "pluginVersion": "7.3.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -295,7 +295,7 @@
             },
             "textMode": "auto"
           },
-          "pluginVersion": "7.2.2",
+          "pluginVersion": "7.3.4",
           "targets": [
             {
               "expr": "bind_up",
@@ -347,7 +347,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "7.2.2",
+          "pluginVersion": "7.3.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -424,6 +424,62 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 7,
+            "x": 0,
+            "y": 3
+          },
+          "id": 36,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "/^mysql_global_variables_server_id\\{instance=\"vm1\\.premiumfriday.ttu:9104\", job=\"mysql\\-ha\"\\}$/",
+              "values": false
+            },
+            "textMode": "value"
+          },
+          "pluginVersion": "7.3.4",
+          "targets": [
+            {
+              "expr": "mysql_global_variables_server_id",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Server ID",
+          "type": "stat"
+        },
+        {
+          "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
               "mappings": [
                 {
                   "from": "",
@@ -459,9 +515,9 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 0,
+            "h": 6,
+            "w": 5,
+            "x": 7,
             "y": 3
           },
           "id": 17,
@@ -474,12 +530,12 @@
               "calcs": [
                 "last"
               ],
-              "fields": "",
+              "fields": "/^mysql_up\\{instance=\"vm1\\.premiumfriday.ttu:9104\", job=\"mysql\\-ha\"\\}$/",
               "values": false
             },
             "textMode": "auto"
           },
-          "pluginVersion": "7.2.2",
+          "pluginVersion": "7.3.4",
           "targets": [
             {
               "expr": "mysql_up",
@@ -508,9 +564,9 @@
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 9,
+            "h": 6,
+            "w": 11,
+            "x": 12,
             "y": 3
           },
           "hiddenSeries": false,
@@ -531,7 +587,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "7.2.2",
+          "pluginVersion": "7.3.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -541,7 +597,232 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(mysql_global_status_queries[1m])",
+              "expr": "rate(mysql_global_status_queries{job=\"mysql-ha\"}[1m])",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "MySQL queries per minute",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 7,
+            "x": 0,
+            "y": 9
+          },
+          "id": 37,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "/^mysql_global_variables_server_id\\{instance=\"vm2\\.premiumfriday.ttu:9104\", job=\"mysql\"\\}$/",
+              "values": false
+            },
+            "textMode": "value"
+          },
+          "pluginVersion": "7.3.4",
+          "targets": [
+            {
+              "expr": "mysql_global_variables_server_id",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Server ID",
+          "type": "stat"
+        },
+        {
+          "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 1,
+                  "text": "UP",
+                  "to": "",
+                  "type": 1,
+                  "value": "1"
+                },
+                {
+                  "from": "",
+                  "id": 2,
+                  "text": "DOWN",
+                  "to": "",
+                  "type": 1,
+                  "value": "0"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 0.5
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 5,
+            "x": 7,
+            "y": 9
+          },
+          "id": 38,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "/^mysql_up\\{instance=\"vm2\\.premiumfriday.ttu:9104\", job=\"mysql\"\\}$/",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.3.4",
+          "targets": [
+            {
+              "expr": "mysql_up",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "MySQL status",
+          "type": "stat"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 6,
+            "w": 11,
+            "x": 12,
+            "y": 9
+          },
+          "hiddenSeries": false,
+          "id": 39,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.3.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "rate(mysql_global_status_queries{job=\"mysql\"}[1m])",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -646,7 +927,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 29
+            "y": 24
           },
           "id": 23,
           "options": {
@@ -663,7 +944,7 @@
             },
             "textMode": "auto"
           },
-          "pluginVersion": "7.2.2",
+          "pluginVersion": "7.3.4",
           "targets": [
             {
               "expr": "nginx_up",
@@ -695,7 +976,7 @@
             "h": 8,
             "w": 12,
             "x": 8,
-            "y": 29
+            "y": 24
           },
           "hiddenSeries": false,
           "id": 24,
@@ -715,7 +996,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "7.2.2",
+          "pluginVersion": "7.3.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -805,7 +1086,7 @@
             "h": 9,
             "w": 11,
             "x": 0,
-            "y": 5
+            "y": 25
           },
           "hiddenSeries": false,
           "id": 28,
@@ -825,7 +1106,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "7.2.2",
+          "pluginVersion": "7.3.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -937,7 +1218,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 14
+            "y": 34
           },
           "hiddenSeries": false,
           "id": 32,
@@ -963,7 +1244,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "7.2.2",
+          "pluginVersion": "7.3.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1652,7 +1933,7 @@
             "h": 24,
             "w": 24,
             "x": 0,
-            "y": 21
+            "y": 41
           },
           "id": 34,
           "options": {
@@ -1660,11 +1941,11 @@
             "sortBy": [
               {
                 "desc": true,
-                "displayName": "Time"
+                "displayName": "severity_code"
               }
             ]
           },
-          "pluginVersion": "7.2.2",
+          "pluginVersion": "7.3.4",
           "targets": [
             {
               "groupBy": [
@@ -1744,16 +2025,17 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
-            "50-motd-news"
+            "All"
           ],
           "value": [
-            "50-motd-news"
+            "$__all"
           ]
         },
         "datasource": "InfluxDB/syslog",
         "definition": "",
+        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Appname",
@@ -1774,16 +2056,17 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
-            "shyamajp-1"
+            "All"
           ],
           "value": [
-            "shyamajp-1"
+            "$__all"
           ]
         },
         "datasource": "InfluxDB/syslog",
         "definition": "",
+        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Hostname",
@@ -1804,16 +2087,17 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
-            "alert"
+            "All"
           ],
           "value": [
-            "alert"
+            "$__all"
           ]
         },
         "datasource": "InfluxDB/syslog",
         "definition": "",
+        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Severity",
@@ -1833,6 +2117,7 @@
       },
       {
         "datasource": "InfluxDB/syslog",
+        "error": null,
         "filters": [],
         "hide": 0,
         "label": "Query",
@@ -1850,5 +2135,5 @@
   "timezone": "",
   "title": "shyamajp",
   "uid": "juO3LHpMz",
-  "version": 14
+  "version": 19
 }

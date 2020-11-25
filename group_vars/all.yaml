@@ -29,6 +29,9 @@ prometheus_jobs:
   - name: mysql
     target: vm2
     port: 9104
+  - name: mysql-ha
+    target: vm1
+    port: 9104
   - name: nginx
     target: vm1
     port: 9113
@@ -36,3 +39,5 @@ prometheus_jobs:
 influxdb: influxdb
 
 backup: 192.168.42.39
+
+grafana_port: 3001
