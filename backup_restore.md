@@ -99,7 +99,7 @@ ansible-playbook ansible-playbook lab07_grafana.yaml
 ### Grafana configuration
 Run on vm2 as ubuntu
 ```bash
-duplicity --no-encryption restore shyamajp@backup.premiumfriday.ttu//home/shyamajp/ /home/backup/restore/
+duplicity --no-encryption restore rsync://shyamajp@backup.premiumfriday.ttu//home/shyamajp/ /home/backup/restore/
 sudo systemctl stop prometheus
 rsync -a --delete /home/backup/backup/grafana.etc/ /etc/grafana/
 rsync -a --delete home/backup/backup/grafana.lib/ /var/lib/grafana/

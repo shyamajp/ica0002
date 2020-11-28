@@ -1,5 +1,4 @@
-mysql_host: 192.168.42.92
-mysql_master_host: 192.168.42.92
+mysql_host: vm2
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -41,3 +40,4 @@ influxdb: influxdb
 backup: 192.168.42.39
 
 grafana_port: 3001
+agama_port: 5001
