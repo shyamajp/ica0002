@@ -34,6 +34,18 @@ prometheus_jobs:
   - name: nginx
     target: vm1
     port: 9113
+  - name: haproxy1
+    target: vm1
+    port: 9101
+  - name: keepalived1
+    target: vm1
+    port: 9165
+  - name: haproxy2
+    target: vm2
+    port: 9101
+  - name: keepalived2
+    target: vm2
+    port: 9165
 
 influxdb: influxdb
 
@@ -41,3 +53,4 @@ backup: 192.168.42.39
 
 grafana_port: 3001
 agama_port: 5001
+agama_container_per_vm: 1

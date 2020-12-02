@@ -1,0 +1,33 @@
+vrrp_script check_haproxy {                 
+    script "netstat -ntl | grep -q ':88 '" 
+    weight 20                              
+    interval 1               
+}
+
+static_routes {
+    	192.168.100.0/24 dev ens3
+}
+
+vrrp_instance VRRP {
+    interface ens3
+    virtual_router_id 1
+    {% if inventory_hostname == 'vm1'%}
+    	priority 110
+    {% else %}
+        priority 100
+    {% endif %}
+    advert_int 1
+    virtual_ipaddress {
+        192.168.100.{{ hostvars['vm1']['ansible_default_ipv4']['address'].split('.')[3] }}
+    }
+    unicast_peer {
+    	{% for vm in groups['haproxy']%}
+    		{% if inventory_hostname != vm %}
+    	    		{{ hostvars[vm]['ansible_default_ipv4']['address'] }}
+    		{% endif %}
+    	{% endfor%}
+    }
+    track_script {
+        check_haproxy
+    }
+}

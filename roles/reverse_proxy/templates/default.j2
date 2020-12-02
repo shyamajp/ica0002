@@ -40,9 +40,15 @@ server {
         location /grafana {
                 proxy_pass http://localhost:{{ grafana_port }};
                 proxy_set_header Host $http_host;
-
         }
         {% endif %}
+
+        {% if inventory_hostname in groups['haproxy'] %}
+        location /haproxy {
+     	        proxy_pass http://127.0.0.1:88/haproxy?stats;
+	}
+        {% endif %}
+
 }
 
 {% if inventory_hostname in groups['web_servers'] %}

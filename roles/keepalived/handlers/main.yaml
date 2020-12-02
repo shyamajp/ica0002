@@ -1,0 +1,14 @@
+---
+- name: Restart Keepalived
+  service:
+    name: keepalived
+    state: restarted
+
+- name: Reload systemd
+  shell: systemctl daemon-reload
+
+- name: Restart keepalived exporter
+  service:
+    name: keepalived-prometheus-exporter
+    state: restarted
+    enabled: yes

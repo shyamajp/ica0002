@@ -1,0 +1,15 @@
+[Unit]
+Description=Prometheus exporter for keepalived
+Documentation=https://github.com/cafebazaar/keepalived-exporter
+
+[Service]
+Restart=always
+User=root
+#EnvironmentFile=/etc/default/keepalived-exporter
+ExecStart=/usr/local/bin/keepalived-exporter-1.1.0.linux-amd64/keepalived-exporter $ARGS
+#ExecReload=/bin/kill -HUP $MAINPID
+#TimeoutStopSec=20s
+#SendSIGKILL=no
+
+[Install]
+WantedBy=multi-user.target

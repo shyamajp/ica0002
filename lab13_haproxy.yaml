@@ -1,0 +1,14 @@
+---
+- name: Set up keepalived,haproxy,exporters
+  hosts: haproxy
+  become: yes
+  roles:
+    - keepalived
+    - haproxy
+    - reverse_proxy
+
+- name: Set up exporters to prometheus
+  hosts: prometheus
+  become: yes
+  roles:
+    - prometheus
