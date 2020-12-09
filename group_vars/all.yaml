@@ -25,6 +25,9 @@ prometheus_jobs:
   - name: bind
     target: vm2
     port: 9119
+  - name: bind-ha
+    target: vm1
+    port: 9119
   - name: mysql
     target: vm2
     port: 9104
@@ -54,3 +57,19 @@ backup: 192.168.42.39
 grafana_port: 3001
 agama_port: 5001
 agama_container_per_vm: 1
+
+dns_forwarders:
+  - 8.8.8.8
+
+subnets: 
+  - 192.168.42.0/24;
+  - 127.0.0.0/8;
+  - 172.17.0.0/16;
+
+dns_record:
+ - name: vm1
+   type: A
+   ip: 192.168.42.100
+ - name: vm2
+   type: A
+   ip: 192.168.42.92

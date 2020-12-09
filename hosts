@@ -13,8 +13,15 @@ vm1 mysql_server_id=100
 vm1
 vm2
 
-[dns_servers]
+[dns_masters]
 vm2
+
+[dns_slaves]
+vm1
+
+[dns_servers:children]
+dns_masters
+dns_slaves
 
 [prometheus]
 vm1

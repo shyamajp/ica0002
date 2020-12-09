@@ -1,0 +1,16 @@
+zone "{{ domain }}" {
+{% if inventory_hostname in groups['dns_masters'] %}
+	type master;
+{% else %}
+	type slave;
+{% endif %}
+	file "/var/lib/bind/db.{{ startup_name }}";
+
+{% if inventory_hostname in groups['dns_slaves'] %}
+	masters {
+	{% for vm in groups['dns_masters'] %}
+		{{ hostvars[vm]['ansible_default_ipv4']['address'] }};
+	{% endfor %}
+	};
+{% endif %}
+};

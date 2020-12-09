@@ -5,7 +5,6 @@
       - bind9
     state: present
     force_apt_get: yes
-    update_cache: yes
 
 - name: Configure DNS forwarders, ACL, master zone
   template:
@@ -13,13 +12,15 @@
     dest: /etc/bind/named.conf.options
   notify: Restart Bind9
     
-- name: Make /etc/bind/db.{{ startup_name }}  directory
-  file:
-    path: /etc/bind/db.{{ startup_name }} 
-    state: directory
+- name: Configure zone config
+  template:
+    src: named.conf.local.j2
+    dest: /etc/bind/named.conf.local
+  notify: Restart Bind9
 
 - name: Configure master zone
   template: 
     src: db.premiumfriday.j2
-    dest: /etc/bind/db.{{ startup_name }}/db.{{ startup_name }}.zone
+    dest: /var/lib/bind/db.{{ startup_name }}
   notify: Restart Bind9
+  when: inventory_hostname in groups['dns_masters']

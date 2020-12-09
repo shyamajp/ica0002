@@ -1,0 +1,20 @@
+---
+- name: DNS servers
+  hosts: dns_servers
+  become: yes
+  roles:
+    - bind
+    - bind_exporter
+    - reverse_proxy
+    
+- name: Change resolv.conf
+  hosts: all
+  become: yes
+  roles:
+    - resolv
+
+- name: Set up exporters to prometheus
+  hosts: prometheus
+  become: yes
+  roles:
+    - prometheus
