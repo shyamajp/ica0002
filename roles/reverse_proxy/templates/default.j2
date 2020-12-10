@@ -4,17 +4,17 @@ server {
 
         {% if inventory_hostname in groups['app_servers'] %}
         location / {
-                proxy_pass http://127.0.0.1:{{ agama_port }};
+                proxy_pass http://localhost:{{ agama_port }};
         }
         {% endif %}
 
         location /metrics {
-                proxy_pass http://127.0.0.1:9100/metrics;
+                proxy_pass http://localhost:9100/metrics;
         }
 
         {% if inventory_hostname in groups['prometheus'] %}
         location /prometheus {
-                proxy_pass http://127.0.0.1:9090;
+                proxy_pass http://localhost:9090;
         }
         {% endif %}
 
@@ -45,10 +45,15 @@ server {
 
         {% if inventory_hostname in groups['haproxy'] %}
         location /haproxy {
-     	        proxy_pass http://127.0.0.1:88/haproxy?stats;
+     	        proxy_pass http://localhost:88/haproxy?stats;
+	}
+        location /haproxy-metrics {
+     	        proxy_pass http://localhost:9101/metrics;
+	}
+        location /keepalived-metrics {
+     	        proxy_pass http://localhost:9165/metrics;
 	}
         {% endif %}
-
 }
 
 {% if inventory_hostname in groups['web_servers'] %}

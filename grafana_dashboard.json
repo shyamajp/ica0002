@@ -307,7 +307,7 @@
               "calcs": [
                 "last"
               ],
-              "fields": "/^keepalived_vrrp_state\\{iname=\"VRRP\", instance=\"vm1\\.premiumfriday.ttu:9165\", intf=\"ens3\", ip_address=\"192.168.100.100/32\", job=\"keepalived1\", vrid=\"1\"\\}$/",
+              "fields": "/^keepalived_vrrp_state\\{iname=\"VRRP\", instance=\"vm1\\.premiumfriday.ttu:9165\", intf=\"ens3\", ip_address=\"192.168.100.91/32\", job=\"keepalived1\", vrid=\"1\"\\}$/",
               "values": false
             },
             "textMode": "auto"

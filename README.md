@@ -1,31 +1,31 @@
-# [vm1](http://193.40.156.86:10080)  
+# [vm1](http://193.40.156.86:9180)  
 ### ssh
-`ubuntu@193.40.156.86 -p10022`
+`ubuntu@193.40.156.86 -p9122`
 ### roles
 - agama
 - nginx  
 - prometheus  
 - MySQL-ha
 ### links
-[agama](http://193.40.156.86:10080/)  
-[prometheus](http://193.40.156.86:10080/prometheus)   
-[MySQL metrics](http://193.40.156.86:10080/mysql-metrics)  
-[node metrics](http://193.40.156.86:10080/metrics)   
-[Nginx metrics](http://193.40.156.86:10080/nginx-metrics) 
+[agama](http://193.40.156.86:9180/)  
+[prometheus](http://193.40.156.86:9180/prometheus)   
+[MySQL metrics](http://193.40.156.86:9180/mysql-metrics)  
+[node metrics](http://193.40.156.86:9180/metrics)   
+[Nginx metrics](http://193.40.156.86:9180/nginx-metrics) 
 
-# [vm2](http://193.40.156.86:9280)
+# [vm2](http://193.40.156.86:9780)
 ### ssh
-`ubuntu@193.40.156.86 -p9222`
+`ubuntu@193.40.156.86 -p9722`
 ### roles
 - MySQL
 - Bind
 - Grafana
 - Grafana-Docker
 ### links
-[Grafana](http://193.40.156.86:9280/grafana)  
-[node metrics](http://193.40.156.86:9280/metrics)  
-[MySQL metrics](http://193.40.156.86:9280/mysql-metrics)  
-[Bind metrics](http://193.40.156.86:9280/bind-metrics)
+[Grafana](http://193.40.156.86:9780/grafana)  
+[node metrics](http://193.40.156.86:9780/metrics)  
+[MySQL metrics](http://193.40.156.86:9780/mysql-metrics)  
+[Bind metrics](http://193.40.156.86:9780/bind-metrics)
 
 # grafana
 ## CPU load

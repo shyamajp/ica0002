@@ -54,9 +54,9 @@
     login_unix_socket: /var/run/mysqld/mysqld.sock
     host: "%"
      
-# On slave (vm1) as root
+# On slave (vm1) as root after mysql
 # STOP SLAVE;
-# CHANGE MASTER TO MASTER_HOST='192.168.42.92',MASTER_USER='replication',MASTER_PASSWORD='<your-replication-password>'
+# CHANGE MASTER TO MASTER_HOST='vm2',MASTER_USER='replication',MASTER_PASSWORD='<your-replication-password>'
 # RESET SLAVE;
 # START SLAVE;
 # SHOW SLAVE STATUS\G

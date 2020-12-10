@@ -16,3 +16,4 @@
   service:
     name: prometheus-nginx-exporter
     state: started
+    enabled: yes
