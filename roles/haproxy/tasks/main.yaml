@@ -18,6 +18,7 @@
     ports:
       - "9101:9101"
     command: --haproxy.scrape-uri="http://vm1:88/haproxy?stats;csv"
+    restart_policy: always
   when: inventory_hostname == "vm1"
 
 - name: Setup HAProxy exporter on VM2
@@ -27,4 +28,5 @@
     ports:
       - "9101:9101"
     command: --haproxy.scrape-uri="http://vm2:88/haproxy?stats;csv"
+    restart_policy: always
   when: inventory_hostname == "vm2"

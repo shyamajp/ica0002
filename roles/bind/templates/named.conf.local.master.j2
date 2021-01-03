@@ -1,0 +1,8 @@
+include "/etc/bind/named.conf.keys";
+
+zone "{{ domain }}" {
+	type master;
+	file "/var/lib/bind/db.{{ startup_name }}";
+	allow-transfer { key transfer.key; };
+    allow-update { key nsupdate.key; };
+};

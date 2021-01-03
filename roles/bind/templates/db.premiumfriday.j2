@@ -7,14 +7,10 @@ $TTL	604800
 			 604800 )	; Negative Cache TTL
 ;
 
-	IN  NS			 vm2.{{ domain }}.
-	IN  A			 {{ dns_record[1].ip }}
-{% for d in dns_record %}
-{{ d.name }}   				 IN  {{ d.type }} {{ d.ip }}
+{% for vm in groups['dns_servers'] %}
+{{ domain }}.	IN	NS	{{ vm }}.{{ domain }}.
 {% endfor %}
 
-{% if inventory_hostname in groups['grafana'] %}
-{{ influxdb }}	IN {{ dns_record[1].type }} {{ dns_record[1].ip }}
-{% endif %}
-
-backup	IN	A	{{ backup }}
+{% for vm in hostvars %}
+{{ hostvars[vm]['inventory_hostname'] }}	IN	A	{{ hostvars[vm]['ansible_default_ipv4']['address'] }}
+{% endfor %}

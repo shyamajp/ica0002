@@ -30,7 +30,7 @@
 
 - name: Create MySQL user
   mysql_user:
-    name: "{{ mysql_database }}"
+    name: "{{ mysql_user }}"
     password: "{{ mysql_password }}"
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
@@ -39,8 +39,8 @@
 # lab10
 - name: Create MySQL user for backup
   mysql_user:
-    name: backup
-    password: "{{ mysql_password }}"
+    name: "{{ mysql_backup_user }}"
+    password: "{{ mysql_backup_password }}"
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
 # lab10
@@ -48,12 +48,12 @@
 # lab11
 - name: Create MySQL user for replication
   mysql_user:
-    name: replication
-    password: "{{ mysql_password }}"
+    name: "{{ mysql_replication_user }}"
+    password: "{{ mysql_replication_password }}"
     priv: "*.*:REPLICATION SLAVE"
     login_unix_socket: /var/run/mysqld/mysqld.sock
     host: "%"
-     
+
 # On slave (vm1) as root after mysql
 # STOP SLAVE;
 # CHANGE MASTER TO MASTER_HOST='vm2',MASTER_USER='replication',MASTER_PASSWORD='<your-replication-password>'
@@ -62,3 +62,9 @@
 # SHOW SLAVE STATUS\G
 # lab11
 # mysql agama < backup.sql
+
+- name: Make sure mysql is started and enabled
+  service:
+    name: mysql
+    state: started
+    enabled: yes

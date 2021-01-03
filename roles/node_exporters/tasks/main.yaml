@@ -6,7 +6,7 @@
     update_cache: yes
     force_apt_get: yes
 
-- name: Make sure Node exporter is enabed
+- name: Make sure Node exporter is started
   service:
     name: prometheus-node-exporter
     state: started

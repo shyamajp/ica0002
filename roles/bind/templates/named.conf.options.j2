@@ -1,11 +1,6 @@
-key "transfer.key" {
-	algorithm hmac-sha256;
-	secret {{ transfer_password }};
-};
-
-acl ica0002vpn {
+acl ica0002vpn { 
 	{% for s in subnets %}
-	  {{ s }}
+		{{ s }};
 	{% endfor %}
 };
 

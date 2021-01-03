@@ -1,0 +1,9 @@
+key "transfer.key" {
+	algorithm hmac-sha256;
+	secret "{{ transfer_key }}";
+};
+
+key "nsupdate.key" {
+	algorithm hmac-sha256;
+	secret "{{ update_key }}";
+};

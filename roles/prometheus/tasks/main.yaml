@@ -5,6 +5,12 @@
       - prometheus
     force_apt_get: yes
 
+- name: Start Prometheus
+  service:
+    name: prometheus
+    state: started
+    enabled: yes
+
 - name: Configure Prometheus
   template: 
     src: prometheus.yml.j2
@@ -16,3 +22,12 @@
     src: prometheus
     dest: /etc/default/prometheus
   notify: Restart Prometheus
+
+- name: Execute handlers preemptively
+  meta: flush_handlers
+
+- name: Make sure prometheus is started
+  service:
+    name: prometheus
+    state: started
+    enabled: yes

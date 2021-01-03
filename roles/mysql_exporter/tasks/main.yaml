@@ -3,6 +3,12 @@
   apt:
     name: prometheus-mysqld-exporter
     force_apt_get: yes
+    
+- name: Start MySQL exporter
+  service:
+    name: prometheus-mysqld-exporter
+    state: started
+    enabled: yes
 
 - name: Copy .my.cnf
   template:
@@ -17,7 +23,7 @@
     login_unix_socket: /var/run/mysqld/mysqld.sock
     priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
 
-- name: Make sure MySQL exporter is enabed
+- name: Make sure MySQL exporter is started and enabed
   service:
     name: prometheus-mysqld-exporter
     state: started

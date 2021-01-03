@@ -1,16 +1,15 @@
-zone "{{ domain }}" {
-{% if inventory_hostname in groups['dns_masters'] %}
-	type master;
-{% else %}
-	type slave;
-{% endif %}
-	file "/var/lib/bind/db.{{ startup_name }}";
+include "/etc/bind/named.conf.keys";
 
-{% if inventory_hostname in groups['dns_slaves'] %}
+server {{ hostvars[groups['dns_masters'][0]]['ansible_default_ipv4']['address'] }} { 
+	keys { transfer.key; };
+};
+
+zone "{{ domain }}" {
+	type slave;
+	file "/var/lib/bind/db.{{ startup_name }}";
 	masters {
 	{% for vm in groups['dns_masters'] %}
 		{{ hostvars[vm]['ansible_default_ipv4']['address'] }};
 	{% endfor %}
 	};
-{% endif %}
 };

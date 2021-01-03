@@ -19,8 +19,12 @@
     dest: /etc/nginx/sites-enabled/default
   notify: Restart Nginx
 
+- name: Execute handlers preemptively
+  meta: flush_handlers
+
 - name: Start Nginx
   service:
     name: nginx
     state: started
+    enabled: yes
 # lab03

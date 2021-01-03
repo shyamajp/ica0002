@@ -4,4 +4,3 @@
   become: yes
   roles:
     - test_connection
-    - reverse_proxy
