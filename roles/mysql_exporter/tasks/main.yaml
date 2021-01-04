@@ -4,12 +4,6 @@
     name: prometheus-mysqld-exporter
     force_apt_get: yes
     
-- name: Start MySQL exporter
-  service:
-    name: prometheus-mysqld-exporter
-    state: started
-    enabled: yes
-
 - name: Copy .my.cnf
   template:
     src: .my.cnf.j2

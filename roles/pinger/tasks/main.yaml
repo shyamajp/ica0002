@@ -42,3 +42,4 @@
   service:
     name: pinger
     state: started
+    enabled: yes

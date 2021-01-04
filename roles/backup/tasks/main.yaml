@@ -2,21 +2,35 @@
 - name: Create user backup and generate ssh key pairs
   user:
     name: backup
+    create_home: yes
+    shell: /bin/bash
     state: present
-    shell: "/bin/bash"
     generate_ssh_key: yes
 
-- name: Add user to prometheus on vm1
+- name: Create group 472
+  group:
+    name: "472"
+    gid: 472
+    state: present
+  when: inventory_hostname in groups['grafana']
+
+- name: Add user to 472
+  user:
+    name: backup
+    groups: "472"
+  when: inventory_hostname in groups['grafana']
+
+- name: Add user to mysql
+  user:
+    name: backup
+    groups: mysql
+  when: inventory_hostname in groups['db_servers']
+
+- name: Add user to prometheus
   user:
     name: backup
     groups: prometheus
-  when: inventory_hostname == "vm1"
-
-- name: Add user to mysql, influxdb, grafana on vm2
-  user:
-    name: backup
-    groups: mysql,influxdb,grafana
-  when: inventory_hostname == "vm2"
+  when: inventory_hostname in groups['prometheus']
 
 - name: Create directories
   file:
@@ -24,10 +38,34 @@
     state: directory
     owner: backup
     group: backup
-    mode: '0755'
   loop:
     - backup
     - restore
+
+- name: Create directories
+  file:
+    path: /home/backup/backup/grafana
+    state: directory
+    owner: backup
+    group: backup
+  when: inventory_hostname in groups['grafana']
+
+
+- name: Create directories
+  file:
+    path: /home/backup/backup/prometheus
+    state: directory
+    owner: backup
+    group: backup
+  when: inventory_hostname in groups['prometheus']
+
+- name: Create directories
+  file:
+    path: /home/backup/backup/mysql
+    state: directory
+    owner: backup
+    group: backup
+  when: inventory_hostname in groups['db_servers']
 
 - name: Add conf for mysqldump
   template:
@@ -35,16 +73,7 @@
     dest: /home/backup/.my.cnf
     owner: 'backup'
     mode: '0400'
-  when: inventory_hostname == "vm2"
-
-- name: Create prometheus backup directory
-  file:
-    path: /home/backup/backup/prometheus
-    state: directory
-    owner: backup
-    group: backup
-    mode: '0755'
-  when: inventory_hostname == "vm1"
+  when: inventory_hostname in groups['db_servers']
 
 - name: Create influxdb backup directory
   file:
@@ -61,17 +90,10 @@
     state: present
     force_apt_get: yes
 
-- name: Schedule backup scripts for vm1
+- name: Schedule backup scripts
   copy:
-    src: backup_vm1
+    src: backup_{{ inventory_hostname }}
     dest: /etc/cron.d/backup
-  when: inventory_hostname == "vm1"
-
-- name: Schedule backup scripts for vm2
-  copy:
-    src: backup_vm2
-    dest: /etc/cron.d/backup
-  when: inventory_hostname == "vm2"
 
 # SSH by backup
 # ssh shyamajp@backup.premiumfriday.ttu

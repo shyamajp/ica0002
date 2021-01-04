@@ -1,46 +1,46 @@
-- name: Set up Bind and Bind exporter
-  hosts: dns_servers
+- name: Set up Prometheus
+  hosts: prometheus
   become: yes
   roles:
-    - bind
-    - bind_exporter
-  tags: bind
-
-- name: Update resolv conf
-  hosts: all
-  become: yes
-  roles:
-    - resolv
-  tags: resolv
-
-- name: Set up Prometheus Node exporters
-  hosts: all
-  become: yes
-  roles:
-    - node_exporters
-  tags: node
+    - prometheus # works after nginx
+  tags: prometheus
 
 - name: Set up Nginx and Nginx exporters
   hosts: web_servers
   become: yes
   roles:
     - nginx
-    - nginx_exporter
+    - nginx_exporter # works after prometheus
   tags: nginx
-
-- name: Set up Prometheus
-  hosts: prometheus
-  become: yes
-  roles:
-    - prometheus
-  tags: prometheus
 
 - name: Reverse proxy
   hosts: all
   become: yes
   roles:
-    - reverse_proxy
+    - reverse_proxy # works after nginx
   tags: reverse_proxy
+
+- name: Set up Node exporters
+  hosts: all
+  become: yes
+  roles:
+    - node_exporters
+  tags: node
+
+- name: Set up Bind and Bind exporter
+  hosts: dns_servers
+  become: yes
+  roles:
+    - bind
+    - bind_exporter # works after prometheus
+  tags: bind
+
+- name: Update resolv conf
+  hosts: all
+  become: yes
+  roles:
+    - resolv # works after bind
+  tags: resolv
 
 - name: Set up influxdb 
   hosts: influxdb
@@ -53,16 +53,15 @@
   hosts: all
   become: yes
   roles:
-    - rsyslog
+    - rsyslog  # works after influxdb
   tags: rsyslog
 
 - name: Set up pinger
   hosts: pinger
   become: yes
   roles:
-    - pinger
+    - pinger # works after influxdb
   tags: pinger
-
 
 - name: Setup Docker
   hosts: docker
@@ -75,7 +74,7 @@
   hosts: grafana
   become: yes
   roles:
-    - grafana_docker
+    - grafana_docker # works after docker
   tags: grafana
 
 - name: Setup MySQL and MySQL exporter
@@ -90,13 +89,20 @@
   hosts: app_servers
   become: yes
   roles:
-    - agama_docker
+    - agama_docker # works after mysql
   tags: agama
 
 - name: Setup HAProxy, keepalived and its exporters
   hosts: haproxy
   become: yes
   roles:
-    - keepalived
-    - haproxy
+    - keepalived # works after agama
+    - haproxy # works after agama
   tags: haproxy
+
+- name: Setup backup
+  hosts: all
+  become: yes
+  roles:
+    - backup
+  tags: backup

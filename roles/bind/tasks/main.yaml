@@ -7,12 +7,6 @@
     state: present
     force_apt_get: yes
 
-- name: Start Bind9
-  service:
-    name: bind9
-    state: started
-    enabled: yes
-
 - name: Copy tsig keys
   template:
     src: named.conf.keys.j2
@@ -48,10 +42,11 @@
     src: db.premiumfriday.j2
     dest: /var/lib/bind/db.{{ startup_name }}
     validate: named-checkzone {{ domain }} %s
-  notify: 
-    - Restart Bind9
-    - Reload rndc
+  notify: Reload rndc
   when: inventory_hostname in groups['dns_masters']
+
+- name: Execute handlers preemptively
+  meta: flush_handlers
 
 - name: Add A records
   nsupdate:
@@ -79,8 +74,11 @@
   loop: "{{ dns_cnames }}"
   when: inventory_hostname in groups['dns_masters']
 
+- name: Execute handlers preemptively
+  meta: flush_handlers
+
 - name: Make sure bind9 is started
   service:
     name: bind9
-    state: restarted
+    state: started
     enabled: yes

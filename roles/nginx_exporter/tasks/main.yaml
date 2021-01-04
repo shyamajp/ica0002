@@ -5,14 +5,11 @@
     dest: /usr/local/bin
     remote_src: yes
 
-# Run /usr/local/bin/nginx-prometheus-exporter
 - name: Make service unit
   copy:
     src: prometheus-nginx-exporter.service
     dest: /etc/systemd/system
-  notify:
-    - Reload daemon
-    - Restart Nginx exporter
+  notify: Reload daemon
 
 - name: Start Nginx exporter
   service:
