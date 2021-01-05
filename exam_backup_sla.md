@@ -30,7 +30,7 @@ Descriptions of backup approaches contain information on specific backup attribu
 
 Backup service covers only the next services:
 
-- Database services - **MySQL, InfluxDB**
+- Database services - **MySQL**
 - Monitoring services - **Grafana**
 - Ansible repository - **All services without data**
 

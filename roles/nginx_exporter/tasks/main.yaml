@@ -9,8 +9,11 @@
   copy:
     src: prometheus-nginx-exporter.service
     dest: /etc/systemd/system
-  notify: Reload daemon
+  notify: 
+    - Reload daemon
+    - Restart Nginx exporter
 
+## FIXME: changed every time
 - name: Start Nginx exporter
   service:
     name: prometheus-nginx-exporter

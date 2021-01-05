@@ -1,4 +1,10 @@
 ---
+- name: Add grafana
+  group:
+    name: grafana
+    gid: 472
+
+## FIXME
 - name: Create Grafana directory
   file:
     name: "/opt/docker/grafana"
@@ -6,6 +12,7 @@
     owner: "472"
     group: "472"
     recurse: true
+  changed_when: False
 
 - name: Setup Grafana container
   docker_container:
@@ -19,5 +26,16 @@
     volumes:
       - /opt/docker/grafana:/var/lib/grafana/
     restart_policy: always
+  notify: Restart MySQL
 
+- name: Wait for a few seconds
+  wait_for:
+    timeout: 10
 
+- name: Create Grafana directory
+  file:
+    name: "/opt/docker/grafana"
+    state: directory
+    owner: "472"
+    group: "472"
+    recurse: true

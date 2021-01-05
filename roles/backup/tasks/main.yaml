@@ -1,36 +1,27 @@
 ---
+  ## FIXME: no ssh
 - name: Create user backup and generate ssh key pairs
   user:
     name: backup
     create_home: yes
+    home: /home/backup
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
     shell: /bin/bash
     state: present
-    generate_ssh_key: yes
 
-- name: Create group 472
-  group:
-    name: "472"
-    gid: 472
-    state: present
-  when: inventory_hostname in groups['grafana']
-
-- name: Add user to 472
+- name: Add user to prometheus
   user:
     name: backup
-    groups: "472"
-  when: inventory_hostname in groups['grafana']
+    groups: prometheus,grafana
+  when: inventory_hostname in groups['prometheus']
 
 - name: Add user to mysql
   user:
     name: backup
     groups: mysql
   when: inventory_hostname in groups['db_servers']
-
-- name: Add user to prometheus
-  user:
-    name: backup
-    groups: prometheus
-  when: inventory_hostname in groups['prometheus']
 
 - name: Create directories
   file:

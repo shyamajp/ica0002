@@ -3,7 +3,8 @@
   systemd:
     daemon_reload: yes
 
-- name: Restart Nginx exporter
+- name: Start Nginx exporter
   service:
     name: prometheus-nginx-exporter.service
     state: restarted
+    enabled: yes

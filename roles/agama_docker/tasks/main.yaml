@@ -31,7 +31,15 @@
     image: agama
     state: started
     env:
-      AGAMA_DATABASE_URI: mysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}?unix_socket=/var/run/mysqld/mysqld.sock
+      AGAMA_DATABASE_URI: mysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}
     ports:
       - "{{ agama_port }}:8000"
     restart_policy: always
+  notify: Restart MySQL
+
+- name: Create the directory /opt/agama
+  file:
+    name: /opt/agama
+    owner: agama
+    state: directory
+    recurse: true

@@ -41,6 +41,7 @@
   template: 
     src: db.premiumfriday.j2
     dest: /var/lib/bind/db.{{ startup_name }}
+    force: no
     validate: named-checkzone {{ domain }} %s
   notify: Reload rndc
   when: inventory_hostname in groups['dns_masters']

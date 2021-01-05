@@ -8,7 +8,9 @@
   template:
     src: .my.cnf.j2
     dest: /var/lib/prometheus/.my.cnf
-  notify: Restart MySQL exporter
+  notify:
+    - Reload daemon
+    - Restart MySQL exporter
 
 - name: Create MySQL user
   mysql_user:
@@ -17,6 +19,10 @@
     login_unix_socket: /var/run/mysqld/mysqld.sock
     priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
 
+- name: Execute handlers preemptively
+  meta: flush_handlers
+
+## FIXME: doent start on the first run
 - name: Make sure MySQL exporter is started and enabed
   service:
     name: prometheus-mysqld-exporter

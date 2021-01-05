@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1609710079246,
+  "iteration": 1609846696789,
   "links": [],
   "panels": [
     {
@@ -1236,7 +1236,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Slave1 Bind status",
+      "title": "Slave2 Bind status",
       "type": "stat"
     },
     {
@@ -2867,7 +2867,7 @@
         "showHeader": true,
         "sortBy": [
           {
-            "desc": false,
+            "desc": true,
             "displayName": "Time"
           }
         ]
@@ -2949,7 +2949,6 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "tags": [],
           "text": [
             "All"
           ],
@@ -3059,5 +3058,5 @@
   "timezone": "",
   "title": "shyamajp",
   "uid": "juO3LHpMz",
-  "version": 2
+  "version": 3
 }

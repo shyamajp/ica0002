@@ -1,6 +1,6 @@
-vm1 ansible_host=193.40.156.86 ansible_port=5022 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
-vm2 ansible_host=193.40.156.86 ansible_port=6522 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
-vm3 ansible_host=193.40.156.86 ansible_port=13822 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+vm1 ansible_host=193.40.156.86 ansible_port=8622 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+vm2 ansible_host=193.40.156.86 ansible_port=11022 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+vm3 ansible_host=193.40.156.86 ansible_port=5822 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
 
 [web_servers]
 vm1

@@ -4,6 +4,7 @@
     name: 
       - prometheus
     force_apt_get: yes
+    update_cache: yes
 
 - name: Start Prometheus
   service:

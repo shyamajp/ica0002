@@ -1,11 +1,10 @@
-00 2 * * 0    root    rsync -a /opt/docker/grafana /home/backup/backup/grafana
+00 2 * * 0    backup  rsync -a /opt/docker/grafana /home/backup/backup/grafana
 
-00 1 * * 0    root    influxd backup -database telegraf /home/backup/backup/influxdb 
-00 1 * * 0    root    influxd backup -database latency /home/backup/backup/influxdb
-
-30 1 * * 0    root    chown -R backup: /home/backup
+00 1 * * 0    backup  influxd backup -database telegraf /home/backup/backup/influxdb 
+00 1 * * 0    backup  influxd backup -database latency /home/backup/backup/influxdb
 
 00 2 * * 0    backup  duplicity --no-encryption full /home/backup/backup/ rsync://shyamajp@backup.premiumfriday.ttu//home/shyamajp/
 00 2 * * 1-6  backup  duplicity --no-encryption incremental /home/backup/backup/ rsync://shyamajp@backup.premiumfriday.ttu//home/shyamajp/
 
-00 3 * * 0    backup  duplicity remove-older-than 30D rsync://shyamajp@backup.premiumfriday.ttu//home/shyamajp/
+00 3 * * 0    backup  duplicity remove-older-than 30D rsync://shyamajp@backup.premiumfriday.ttu//home/shyamajp/ --allow-source-mismatch
+

@@ -4,6 +4,7 @@
     name: nginx
     state: present
     force_apt_get: yes
+    update_cache: yes
   
 # lab02
 # - name: Serve index.html
@@ -13,11 +14,11 @@
 # lab02
 
 # lab03
-- name: Copy Nginx configuration
-  copy:
-    src: default
-    dest: /etc/nginx/sites-enabled/default
-  notify: Restart Nginx
+# - name: Copy Nginx configuration
+#   copy:
+#     src: default
+#     dest: /etc/nginx/sites-enabled/default
+#   notify: Restart Nginx
 
 - name: Execute handlers preemptively
   meta: flush_handlers

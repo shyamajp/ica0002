@@ -5,4 +5,4 @@
 00 2 * * 0    backup  duplicity --no-encryption full /home/backup/backup/ rsync://shyamajp@backup.premiumfriday.ttu//home/shyamajp/
 00 2 * * 1-6  backup  duplicity --no-encryption incremental /home/backup/backup/ rsync://shyamajp@backup.premiumfriday.ttu//home/shyamajp/
 
-00 3 * * 0    backup  duplicity remove-older-than 30D rsync://shyamajp@backup.premiumfriday.ttu//home/shyamajp/
+00 3 * * 0    backup  duplicity remove-older-than 30D rsync://shyamajp@backup.premiumfriday.ttu//home/shyamajp/ --allow-source-mismatch
