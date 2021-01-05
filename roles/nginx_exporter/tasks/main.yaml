@@ -13,7 +13,6 @@
     - Reload daemon
     - Restart Nginx exporter
 
-## FIXME: changed every time
 - name: Start Nginx exporter
   service:
     name: prometheus-nginx-exporter

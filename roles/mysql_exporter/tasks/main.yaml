@@ -22,7 +22,6 @@
 - name: Execute handlers preemptively
   meta: flush_handlers
 
-## FIXME: doent start on the first run
 - name: Make sure MySQL exporter is started and enabed
   service:
     name: prometheus-mysqld-exporter

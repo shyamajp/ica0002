@@ -4,7 +4,6 @@
     name: grafana
     gid: 472
 
-## FIXME
 - name: Create Grafana directory
   file:
     name: "/opt/docker/grafana"

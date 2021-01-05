@@ -1,5 +1,4 @@
 ---
-  ## FIXME: no ssh
 - name: Create user backup and generate ssh key pairs
   user:
     name: backup
